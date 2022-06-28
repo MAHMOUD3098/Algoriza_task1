@@ -18,6 +18,7 @@ class OnBoardingScreen extends StatelessWidget {
   OnBoardingScreen({Key? key}) : super(key: key);
 
   final PageController onBoardingPageController = PageController();
+  String onBoardingButtonText = 'Next';
 
   final List<BoardingModel> boardingModels = [
     BoardingModel(
@@ -66,7 +67,11 @@ class OnBoardingScreen extends StatelessWidget {
                   controller: onBoardingPageController,
                   itemCount: 2,
                   physics: const BouncingScrollPhysics(),
-                  onPageChanged: (int index) {},
+                  onPageChanged: (int index) {
+                    if (index == boardingModels.length - 1) {
+                      onBoardingButtonText = 'Login';
+                    }
+                  },
                   itemBuilder: (context, index) {
                     return OnBoardingScreenItem(
                       boardingModel: boardingModels[index],
@@ -89,7 +94,7 @@ class OnBoardingScreen extends StatelessWidget {
               const SizedBox(
                 height: 5,
               ),
-              const CustomTextButton(text: 'Login'),
+              const CustomTextButton(text: 'onBoardingButtonText', onPressed: null),
               const SizedBox(
                 height: 5,
               ),
