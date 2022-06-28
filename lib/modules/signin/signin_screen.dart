@@ -1,18 +1,14 @@
-// ignore_for_file: sized_box_for_whitespace
-
 import 'package:algoriza_task1/shared/components/components.dart';
 import 'package:algoriza_task1/shared/components/paths.dart';
 import 'package:algoriza_task1/shared/styles/colors.dart';
 import 'package:algoriza_task1/shared/styles/styles.dart';
 import 'package:flutter/material.dart';
 
-class RegisterScreen extends StatelessWidget {
-  RegisterScreen({Key? key}) : super(key: key);
+class SignInScreen extends StatelessWidget {
+  SignInScreen({Key? key}) : super(key: key);
 
-  final registrationFormKey = GlobalKey<FormState>();
-  final TextEditingController emailController = TextEditingController();
+  final signinFormKey = GlobalKey<FormState>();
   final TextEditingController phoneNumberController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -26,34 +22,11 @@ class RegisterScreen extends StatelessWidget {
             children: [
               Container(
                 width: double.infinity,
-                height: MediaQuery.of(context).size.height * .14,
-                child: Stack(
-                  children: [
-                    Image.asset(
-                      Paths.backgroundImage,
-                      width: double.infinity,
-                      fit: BoxFit.fitWidth,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      child: Align(
-                        alignment: Alignment.centerLeft,
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 10),
-                          decoration: const BoxDecoration(
-                            color: Colors.black,
-                            shape: BoxShape.circle,
-                          ),
-                          width: 35,
-                          height: 35,
-                          child: Icon(
-                            Icons.arrow_back_ios,
-                            color: whiteColor,
-                          ),
-                        ),
-                      ),
-                    )
-                  ],
+                height: MediaQuery.of(context).size.height * .33,
+                child: Image.asset(
+                  Paths.backgroundImage,
+                  width: double.infinity,
+                  fit: BoxFit.fitWidth,
                 ),
               ),
               const SizedBox(
@@ -65,7 +38,7 @@ class RegisterScreen extends StatelessWidget {
                   vertical: 20,
                 ),
                 child: Form(
-                  key: registrationFormKey,
+                  key: signinFormKey,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
@@ -80,7 +53,7 @@ class RegisterScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            'Register',
+                            'Sign in',
                             style: descriptionTextStyle.copyWith(
                               fontSize: 40,
                               fontFamily: 'Lora',
@@ -112,34 +85,14 @@ class RegisterScreen extends StatelessWidget {
                         ],
                       ),
                       const SizedBox(
-                        height: 10,
-                      ),
-                      CustomTextFormField(
-                        label: 'Email',
-                        controller: emailController,
-                        type: TextInputType.emailAddress,
-                        validate: (String? val) {},
-                        placeHolder: 'Eg. example@email.com',
+                        height: 30,
                       ),
                       const CustomCountryCodePicker(),
-                      CustomTextFormField(
-                        label: 'Password',
-                        controller: emailController,
-                        type: TextInputType.emailAddress,
-                        validate: (String? val) {},
-                        placeHolder: 'Password',
-                        isPassword: true,
-                        suffixIcon: const Icon(
-                          Icons.visibility_rounded,
-                          color: Colors.black,
-                        ),
-                        suffixIconPressed: () {},
-                      ),
                       const SizedBox(
-                        height: 10,
+                        height: 20,
                       ),
                       CustomTextButton(
-                        text: 'Register',
+                        text: 'Sign in',
                         onPressed: () {},
                         color: Colors.blue,
                       ),
@@ -185,7 +138,7 @@ class RegisterScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            'Has any account? ',
+                            'Doesn\'t has any account? ',
                             style: regularTextStyle,
                           ),
                           InkWell(
@@ -193,29 +146,23 @@ class RegisterScreen extends StatelessWidget {
                             highlightColor: Colors.transparent,
                             onTap: () {},
                             child: Text(
-                              'Sign in here',
+                              'Register here',
                               style: regularTextStyle.copyWith(color: Colors.blue),
                             ),
                           ),
                         ],
                       ),
                       const SizedBox(
-                        height: 20,
+                        height: 10,
                       ),
-                      const Center(
+                      const Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 15),
                         child: Text(
-                          'By registering your account, you are agree to our',
+                          'Use the application according to policy rules, Any kind of violations will be subject to sanctions.',
                           style: TextStyle(
                             color: Colors.grey,
                           ),
-                        ),
-                      ),
-                      const Center(
-                        child: Text(
-                          'terms and conditions',
-                          style: TextStyle(
-                            color: Colors.blue,
-                          ),
+                          textAlign: TextAlign.center,
                         ),
                       ),
                     ],

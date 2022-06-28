@@ -1,4 +1,5 @@
 import 'package:algoriza_task1/modules/register/register_screen.dart';
+import 'package:algoriza_task1/modules/signin/signin_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         fontFamily: 'Poppins',
       ),
-      home: RegisterScreen(),
+      home: SignInScreen(),
     );
   }
 }
