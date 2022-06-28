@@ -96,7 +96,7 @@ class CustomTextFormField extends StatelessWidget {
   final TextEditingController? controller;
   final TextInputType? type;
   final Function()? onTap;
-  final String? Function(String?)? validate;
+  final String? Function(String?)? validator;
   final String? placeHolder;
   final double? verticalPadding;
   final Icon? suffixIcon;
@@ -107,7 +107,7 @@ class CustomTextFormField extends StatelessWidget {
   CustomTextFormField({
     Key? key,
     required this.controller,
-    required this.validate,
+    required this.validator,
     required this.label,
     this.type,
     this.placeHolder,
@@ -141,19 +141,31 @@ class CustomTextFormField extends StatelessWidget {
             controller: controller,
             keyboardType: type,
             obscureText: isPassword,
-            validator: validate,
+            validator: validator,
+            autovalidateMode: AutovalidateMode.onUserInteraction,
             onTap: onTap,
             decoration: InputDecoration(
-              hintText: placeHolder,
-              hintStyle: descriptionTextStyle.copyWith(color: Colors.grey),
-              enabledBorder: const OutlineInputBorder(
-                borderSide: BorderSide(width: 1, color: Colors.grey),
+              contentPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+              errorBorder: const OutlineInputBorder(
+                borderSide: BorderSide(
+                  color: Colors.red,
+                ),
               ),
-              focusedBorder: const OutlineInputBorder(
-                borderSide: BorderSide(width: 1, color: Colors.grey),
+              focusedErrorBorder: const OutlineInputBorder(
+                borderSide: BorderSide(
+                  color: Colors.red,
+                ),
+              ),
+              hintText: placeHolder,
+              hintStyle: descriptionTextStyle.copyWith(color: placeHolderTextColor),
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(width: 1, color: textFormFieldBorderColor),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(width: 1, color: textFormFieldBorderColor),
               ),
               filled: true,
-              fillColor: borderColor,
+              fillColor: HexColor('#FDFCFF'),
               suffixIcon: suffixIcon == null
                   ? null
                   : InkWell(
@@ -169,7 +181,9 @@ class CustomTextFormField extends StatelessWidget {
 }
 
 class CustomCountryCodePicker extends StatelessWidget {
-  const CustomCountryCodePicker({Key? key}) : super(key: key);
+  final String? Function(String?)? validator;
+  final Color errorBorderColor;
+  const CustomCountryCodePicker({Key? key, required this.validator, required this.errorBorderColor}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -189,24 +203,27 @@ class CustomCountryCodePicker extends StatelessWidget {
         Container(
           decoration: BoxDecoration(
             color: borderColor,
-            border: Border.all(color: greyColor),
+            border: Border.all(color: errorBorderColor),
           ),
           child: InternationalPhoneNumberInput(
             initialValue: PhoneNumber(
               isoCode: PhoneNumber.getISO2CodeByPrefix('+81'),
             ),
+            spaceBetweenSelectorAndTextField: 0,
+            autoValidateMode: AutovalidateMode.onUserInteraction,
+            validator: validator,
+            selectorButtonOnErrorPadding: 0,
             keyboardType: TextInputType.phone,
             onInputChanged: (PhoneNumber number) {},
             selectorConfig: const SelectorConfig(
               selectorType: PhoneInputSelectorType.DIALOG,
               showFlags: false,
               trailingSpace: false,
-              useEmoji: false,
             ),
             inputDecoration: InputDecoration.collapsed(
               hintText: 'Eg. 812345678',
               hintStyle: descriptionTextStyle.copyWith(
-                color: Colors.grey,
+                color: placeHolderTextColor,
               ),
             ),
           ),

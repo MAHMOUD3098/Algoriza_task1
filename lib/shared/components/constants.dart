@@ -20,3 +20,10 @@ void navigateAndFinish(
         return false;
       },
     );
+
+void navigateBack(context) => Navigator.pop(context);
+
+void navigateAndPop(context, widget) => Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => widget),
+    );

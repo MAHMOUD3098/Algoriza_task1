@@ -4,4 +4,5 @@ class Paths {
   static String backgroundImage = 'assets/images/background.jpg';
   static String googleImage = 'assets/images/google.png';
   static String logo = 'assets/images/logo.png';
+  static String bannerImage = 'assets/images/banner.png';
 }

@@ -10,3 +10,6 @@ HexColor gray_2 = HexColor("#ADA4A5");
 HexColor gray_3 = HexColor("#DDDADA");
 
 HexColor borderColor = HexColor("#F7F8F8");
+
+HexColor placeHolderTextColor = HexColor('#D2D1D6');
+HexColor textFormFieldBorderColor = HexColor('#E4E3E8');

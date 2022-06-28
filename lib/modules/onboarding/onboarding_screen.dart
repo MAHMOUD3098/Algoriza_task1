@@ -47,124 +47,122 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: whiteColor,
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-          child: SingleChildScrollView(
-            physics: const BouncingScrollPhysics(),
-            child: Column(
-              children: [
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: TextButton(
-                    onPressed: () {
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 35),
+        child: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
+          child: Column(
+            children: [
+              Align(
+                alignment: Alignment.centerRight,
+                child: TextButton(
+                  onPressed: () {
+                    navigateTo(context, RegisterScreen());
+                  },
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(HexColor('#FAF2E7')),
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20.0),
+                      ),
+                    ),
+                    splashFactory: NoSplash.splashFactory,
+                  ),
+                  child: Text(
+                    'Skip',
+                    style: TextStyle(
+                      foreground: Paint()..color = blackColor,
+                    ),
+                  ),
+                ),
+              ),
+              Container(
+                width: 100,
+                height: 30,
+                child: Image.asset(
+                  Paths.logo,
+                ),
+              ),
+              Container(
+                height: MediaQuery.of(context).size.height * .6,
+                child: PageView.builder(
+                  controller: pageViewController,
+                  itemCount: 2,
+                  physics: const BouncingScrollPhysics(),
+                  onPageChanged: (int index) {
+                    pageViewCurrentIndex = index;
+                    if (index == boardingModels.length - 1) {
+                      onBoardingButtonText = 'Login';
+                    } else {
+                      onBoardingButtonText = 'Next';
+                    }
+                    setState(() {});
+                  },
+                  itemBuilder: (context, index) {
+                    return OnBoardingScreenItem(
+                      boardingModel: boardingModels[index],
+                    );
+                  },
+                ),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              Center(
+                child: SmoothPageIndicator(
+                  controller: pageViewController,
+                  count: 2,
+                  effect: const WormEffect(
+                    dotHeight: 5,
+                    dotWidth: 20,
+                    activeDotColor: Colors.orangeAccent,
+                    // strokeWidth: 5,
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              CustomTextButton(
+                text: onBoardingButtonText,
+                onPressed: () {
+                  if (pageViewCurrentIndex == boardingModels.length - 1) {
+                    navigateAndFinish(context, SignInScreen());
+                  } else {
+                    pageViewController.animateToPage(
+                      1,
+                      duration: Duration(seconds: 1),
+                      curve: Curves.fastOutSlowIn,
+                    );
+                  }
+                },
+                padding: 18,
+                radius: 10,
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Don\'t have an account? ',
+                    style: regularTextStyle,
+                  ),
+                  InkWell(
+                    splashColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    onTap: () {
                       navigateTo(context, RegisterScreen());
                     },
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(HexColor('#FAF2E7')),
-                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                        RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20.0),
-                        ),
-                      ),
-                      splashFactory: NoSplash.splashFactory,
-                    ),
                     child: Text(
-                      'Skip',
-                      style: TextStyle(
-                        foreground: Paint()..color = blackColor,
-                      ),
+                      'Sign Up',
+                      style: regularTextStyle.copyWith(color: Colors.teal),
                     ),
                   ),
-                ),
-                Container(
-                  width: 100,
-                  height: 30,
-                  child: Image.asset(
-                    Paths.logo,
-                  ),
-                ),
-                Container(
-                  height: MediaQuery.of(context).size.height * .6,
-                  child: PageView.builder(
-                    controller: pageViewController,
-                    itemCount: 2,
-                    physics: const BouncingScrollPhysics(),
-                    onPageChanged: (int index) {
-                      pageViewCurrentIndex = index;
-                      if (index == boardingModels.length - 1) {
-                        onBoardingButtonText = 'Login';
-                      } else {
-                        onBoardingButtonText = 'Next';
-                      }
-                      setState(() {});
-                    },
-                    itemBuilder: (context, index) {
-                      return OnBoardingScreenItem(
-                        boardingModel: boardingModels[index],
-                      );
-                    },
-                  ),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Center(
-                  child: SmoothPageIndicator(
-                    controller: pageViewController,
-                    count: 2,
-                    effect: const WormEffect(
-                      dotHeight: 5,
-                      dotWidth: 20,
-                      activeDotColor: Colors.orangeAccent,
-                      // strokeWidth: 5,
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                CustomTextButton(
-                  text: onBoardingButtonText,
-                  onPressed: () {
-                    if (pageViewCurrentIndex == boardingModels.length - 1) {
-                      navigateTo(context, SignInScreen());
-                    } else {
-                      pageViewController.animateToPage(
-                        1,
-                        duration: Duration(seconds: 1),
-                        curve: Curves.fastOutSlowIn,
-                      );
-                    }
-                  },
-                  padding: 18,
-                  radius: 10,
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      'Don\'t have an account? ',
-                      style: regularTextStyle,
-                    ),
-                    InkWell(
-                      splashColor: Colors.transparent,
-                      highlightColor: Colors.transparent,
-                      onTap: () {
-                        navigateTo(context, RegisterScreen());
-                      },
-                      child: Text(
-                        'Sign Up',
-                        style: regularTextStyle.copyWith(color: Colors.teal),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
+                ],
+              ),
+            ],
           ),
         ),
       ),

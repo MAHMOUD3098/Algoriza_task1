@@ -2,6 +2,7 @@ import 'package:algoriza_task1/modules/onboarding/onboarding_screen.dart';
 import 'package:algoriza_task1/modules/register/register_screen.dart';
 import 'package:algoriza_task1/modules/signin/signin_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,6 +14,12 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(
+      const SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        statusBarIconBrightness: Brightness.dark,
+      ),
+    );
     return MaterialApp(
       title: 'Algoriza Task 1',
       debugShowCheckedModeBanner: false,
