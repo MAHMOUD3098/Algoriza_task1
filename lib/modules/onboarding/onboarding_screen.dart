@@ -77,8 +77,8 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                 ),
               ),
               Container(
-                width: 100,
-                height: 30,
+                width: 150,
+                height: 50,
                 child: Image.asset(
                   Paths.logo,
                 ),
