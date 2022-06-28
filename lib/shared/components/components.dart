@@ -2,6 +2,7 @@ import 'package:algoriza_task1/modules/onboarding/onboarding_screen.dart';
 import 'package:algoriza_task1/shared/styles/colors.dart';
 import 'package:algoriza_task1/shared/styles/styles.dart';
 import 'package:flutter/material.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 
 class OnBoardingScreenItem extends StatelessWidget {
@@ -15,26 +16,33 @@ class OnBoardingScreenItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Container(
-          height: MediaQuery.of(context).size.height * .5,
+        Expanded(
+          flex: 2,
           child: Image.asset(
             boardingModel.image,
-            fit: BoxFit.fill,
+            width: double.infinity,
+            // height: MediaQuery.of(context).size.height * .4,
           ),
         ),
-        Text(
-          boardingModel.title,
-          style: titleTextStyle,
-          textAlign: TextAlign.center,
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10),
-          child: Text(
-            boardingModel.description,
-            style: descriptionTextStyle.copyWith(color: greyColor),
-            textAlign: TextAlign.center,
+        Expanded(
+          child: Column(
+            children: [
+              Text(
+                boardingModel.title,
+                style: titleTextStyle,
+                textAlign: TextAlign.center,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: Text(
+                  boardingModel.description,
+                  style: descriptionTextStyle.copyWith(color: greyColor),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ],
           ),
-        ),
+        )
       ],
     );
   }
@@ -44,8 +52,12 @@ class CustomTextButton extends StatefulWidget {
   final String text;
   final void Function()? onPressed;
   final Color? color;
+  final double? width;
+  final double padding;
+  final double? radius;
 
-  const CustomTextButton({Key? key, required this.text, required this.onPressed, this.color}) : super(key: key);
+  const CustomTextButton({Key? key, required this.text, required this.onPressed, this.color, this.width, this.padding = 12, this.radius})
+      : super(key: key);
 
   @override
   State<CustomTextButton> createState() => _CustomTextButtonState();
@@ -55,23 +67,22 @@ class _CustomTextButtonState extends State<CustomTextButton> {
   @override
   Widget build(BuildContext context) {
     return Ink(
+      width: widget.width ?? double.infinity,
       child: TextButton(
         style: ButtonStyle(
           padding: MaterialStateProperty.all(
-            const EdgeInsets.symmetric(
-              vertical: 18,
+            EdgeInsets.symmetric(
+              vertical: widget.padding,
             ),
           ),
-          backgroundColor: MaterialStateProperty.all(widget.color ?? Colors.teal),
+          backgroundColor: MaterialStateProperty.all(widget.color ?? HexColor('#51AFAB')),
           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
             RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(5),
+              borderRadius: BorderRadius.circular(widget.radius ?? 5),
             ),
           ),
         ),
-        onPressed: () {
-          widget.onPressed;
-        },
+        onPressed: widget.onPressed,
         child: Text(
           widget.text,
           style: TextStyle(color: whiteColor, fontSize: 16, fontWeight: FontWeight.bold),

@@ -1,4 +1,7 @@
+import 'package:algoriza_task1/modules/register/register_screen.dart';
+import 'package:algoriza_task1/modules/signin/signin_screen.dart';
 import 'package:algoriza_task1/shared/components/components.dart';
+import 'package:algoriza_task1/shared/components/constants.dart';
 import 'package:algoriza_task1/shared/components/paths.dart';
 import 'package:algoriza_task1/shared/styles/colors.dart';
 import 'package:algoriza_task1/shared/styles/styles.dart';
@@ -14,10 +17,17 @@ class BoardingModel {
   BoardingModel(this.title, this.description, this.image);
 }
 
-class OnBoardingScreen extends StatelessWidget {
+class OnBoardingScreen extends StatefulWidget {
   OnBoardingScreen({Key? key}) : super(key: key);
 
-  final PageController onBoardingPageController = PageController();
+  @override
+  State<OnBoardingScreen> createState() => _OnBoardingScreenState();
+}
+
+class _OnBoardingScreenState extends State<OnBoardingScreen> {
+  final PageController pageViewController = PageController();
+  int pageViewCurrentIndex = 0;
+
   String onBoardingButtonText = 'Next';
 
   final List<BoardingModel> boardingModels = [
@@ -36,87 +46,125 @@ class OnBoardingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: whiteColor,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Align(
-                alignment: Alignment.centerRight,
-                child: TextButton(
-                  onPressed: () {},
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(HexColor('#C4A484')),
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20.0),
+          child: SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
+            child: Column(
+              children: [
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: TextButton(
+                    onPressed: () {
+                      navigateTo(context, RegisterScreen());
+                    },
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(HexColor('#FAF2E7')),
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20.0),
+                        ),
+                      ),
+                      splashFactory: NoSplash.splashFactory,
+                    ),
+                    child: Text(
+                      'Skip',
+                      style: TextStyle(
+                        foreground: Paint()..color = blackColor,
                       ),
                     ),
                   ),
-                  child: Text(
-                    'Skip',
-                    style: TextStyle(
-                      foreground: Paint()..color = whiteColor,
+                ),
+                Container(
+                  width: 100,
+                  height: 30,
+                  child: Image.asset(
+                    Paths.logo,
+                  ),
+                ),
+                Container(
+                  height: MediaQuery.of(context).size.height * .6,
+                  child: PageView.builder(
+                    controller: pageViewController,
+                    itemCount: 2,
+                    physics: const BouncingScrollPhysics(),
+                    onPageChanged: (int index) {
+                      pageViewCurrentIndex = index;
+                      if (index == boardingModels.length - 1) {
+                        onBoardingButtonText = 'Login';
+                      } else {
+                        onBoardingButtonText = 'Next';
+                      }
+                      setState(() {});
+                    },
+                    itemBuilder: (context, index) {
+                      return OnBoardingScreenItem(
+                        boardingModel: boardingModels[index],
+                      );
+                    },
+                  ),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Center(
+                  child: SmoothPageIndicator(
+                    controller: pageViewController,
+                    count: 2,
+                    effect: const WormEffect(
+                      dotHeight: 5,
+                      dotWidth: 20,
+                      activeDotColor: Colors.orangeAccent,
+                      // strokeWidth: 5,
                     ),
                   ),
                 ),
-              ),
-              Expanded(
-                child: PageView.builder(
-                  controller: onBoardingPageController,
-                  itemCount: 2,
-                  physics: const BouncingScrollPhysics(),
-                  onPageChanged: (int index) {
-                    if (index == boardingModels.length - 1) {
-                      onBoardingButtonText = 'Login';
+                const SizedBox(
+                  height: 20,
+                ),
+                CustomTextButton(
+                  text: onBoardingButtonText,
+                  onPressed: () {
+                    if (pageViewCurrentIndex == boardingModels.length - 1) {
+                      navigateTo(context, SignInScreen());
+                    } else {
+                      pageViewController.animateToPage(
+                        1,
+                        duration: Duration(seconds: 1),
+                        curve: Curves.fastOutSlowIn,
+                      );
                     }
                   },
-                  itemBuilder: (context, index) {
-                    return OnBoardingScreenItem(
-                      boardingModel: boardingModels[index],
-                    );
-                  },
+                  padding: 18,
+                  radius: 10,
                 ),
-              ),
-              Center(
-                child: SmoothPageIndicator(
-                  controller: onBoardingPageController,
-                  count: 2,
-                  effect: const WormEffect(
-                    dotHeight: 5,
-                    dotWidth: 20,
-                    activeDotColor: Colors.orangeAccent,
-                    // strokeWidth: 5,
-                  ),
+                const SizedBox(
+                  height: 20,
                 ),
-              ),
-              const SizedBox(
-                height: 5,
-              ),
-              const CustomTextButton(text: 'onBoardingButtonText', onPressed: null),
-              const SizedBox(
-                height: 5,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Don\'t have an account? ',
-                    style: regularTextStyle,
-                  ),
-                  InkWell(
-                    splashColor: Colors.transparent,
-                    highlightColor: Colors.transparent,
-                    onTap: () {},
-                    child: Text(
-                      'Sign Up',
-                      style: regularTextStyle.copyWith(color: Colors.teal),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Don\'t have an account? ',
+                      style: regularTextStyle,
                     ),
-                  ),
-                ],
-              ),
-            ],
+                    InkWell(
+                      splashColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
+                      onTap: () {
+                        navigateTo(context, RegisterScreen());
+                      },
+                      child: Text(
+                        'Sign Up',
+                        style: regularTextStyle.copyWith(color: Colors.teal),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),
