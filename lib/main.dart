@@ -1,3 +1,5 @@
+import 'package:algoriza_task1/modules/register/register_screen.dart';
+import 'package:algoriza_task1/modules/signin/signin_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -11,12 +13,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Algoriza Task 1',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        fontFamily: 'Poppins',
       ),
-      home: Container(color: Colors.white),
+      home: SignInScreen(),
     );
   }
 }
