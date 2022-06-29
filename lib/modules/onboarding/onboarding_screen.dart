@@ -6,7 +6,6 @@ import 'package:algoriza_task1/shared/components/paths.dart';
 import 'package:algoriza_task1/shared/styles/colors.dart';
 import 'package:algoriza_task1/shared/styles/styles.dart';
 import 'package:flutter/material.dart';
-import 'package:hexcolor/hexcolor.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class BoardingModel {
@@ -18,7 +17,7 @@ class BoardingModel {
 }
 
 class OnBoardingScreen extends StatefulWidget {
-  OnBoardingScreen({Key? key}) : super(key: key);
+  const OnBoardingScreen({Key? key}) : super(key: key);
 
   @override
   State<OnBoardingScreen> createState() => _OnBoardingScreenState();
@@ -60,7 +59,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                     navigateTo(context, RegisterScreen());
                   },
                   style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(HexColor('#FAF2E7')),
+                    backgroundColor: MaterialStateProperty.all(skipButtonColor),
                     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                       RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20.0),
@@ -127,11 +126,11 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                 text: onBoardingButtonText,
                 onPressed: () {
                   if (pageViewCurrentIndex == boardingModels.length - 1) {
-                    navigateAndFinish(context, SignInScreen());
+                    navigateAndFinish(context, const SignInScreen());
                   } else {
                     pageViewController.animateToPage(
                       1,
-                      duration: Duration(seconds: 1),
+                      duration: const Duration(seconds: 1),
                       curve: Curves.fastOutSlowIn,
                     );
                   }

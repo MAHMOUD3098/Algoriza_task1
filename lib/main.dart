@@ -1,6 +1,4 @@
 import 'package:algoriza_task1/modules/onboarding/onboarding_screen.dart';
-import 'package:algoriza_task1/modules/register/register_screen.dart';
-import 'package:algoriza_task1/modules/signin/signin_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -27,7 +25,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         fontFamily: 'Poppins',
       ),
-      home: OnBoardingScreen(),
+      home: const OnBoardingScreen(),
     );
   }
 }

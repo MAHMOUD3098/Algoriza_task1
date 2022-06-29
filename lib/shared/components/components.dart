@@ -75,7 +75,7 @@ class _CustomTextButtonState extends State<CustomTextButton> {
               vertical: widget.padding,
             ),
           ),
-          backgroundColor: MaterialStateProperty.all(widget.color ?? HexColor('#51AFAB')),
+          backgroundColor: MaterialStateProperty.all(widget.color ?? customButtonColor),
           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
             RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(widget.radius ?? 5),
@@ -104,7 +104,7 @@ class CustomTextFormField extends StatelessWidget {
   final bool isPassword;
   final String label;
 
-  CustomTextFormField({
+  const CustomTextFormField({
     Key? key,
     required this.controller,
     required this.validator,
@@ -165,7 +165,7 @@ class CustomTextFormField extends StatelessWidget {
                 borderSide: BorderSide(width: 1, color: textFormFieldBorderColor),
               ),
               filled: true,
-              fillColor: HexColor('#FDFCFF'),
+              fillColor: textFormFieldFillColor,
               suffixIcon: suffixIcon == null
                   ? null
                   : InkWell(
@@ -202,7 +202,7 @@ class CustomCountryCodePicker extends StatelessWidget {
         ),
         Container(
           decoration: BoxDecoration(
-            color: borderColor,
+            color: textFormFieldFillColor,
             border: Border.all(color: errorBorderColor),
           ),
           child: InternationalPhoneNumberInput(
@@ -279,6 +279,39 @@ class CustomSocialMediaLoginButton extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+class CustomHelpComponent extends StatelessWidget {
+  const CustomHelpComponent({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        const Text(
+          'Help',
+          style: TextStyle(
+            color: Colors.blue,
+          ),
+        ),
+        const SizedBox(
+          width: 5,
+        ),
+        Container(
+          padding: const EdgeInsets.all(2),
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: HexColor('#3486FE'),
+          ),
+          child: Icon(
+            Icons.question_mark_outlined,
+            color: whiteColor,
+            size: 18,
+          ),
+        )
+      ],
     );
   }
 }

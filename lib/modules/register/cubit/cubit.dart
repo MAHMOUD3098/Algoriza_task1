@@ -21,7 +21,7 @@ class RegisterCubit extends Cubit<RegisterStates> {
   }
 
   void changeCountryCodePickerBorderColor(bool isError) {
-    countryCodePickerBorderColor = isError ? HexColor('#FF3756') : textFormFieldBorderColor;
+    countryCodePickerBorderColor = isError ? redColor : textFormFieldBorderColor;
     emit(ChangeCountryCodePickerBorderColorState());
   }
 }

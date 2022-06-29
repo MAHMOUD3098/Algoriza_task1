@@ -10,7 +10,6 @@ import 'package:algoriza_task1/shared/styles/colors.dart';
 import 'package:algoriza_task1/shared/styles/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hexcolor/hexcolor.dart';
 
 class RegisterScreen extends StatelessWidget {
   RegisterScreen({Key? key}) : super(key: key);
@@ -103,31 +102,7 @@ class RegisterScreen extends StatelessWidget {
                                   fontWeight: FontWeight.w700,
                                 ),
                               ),
-                              Row(
-                                children: [
-                                  const Text(
-                                    'Help',
-                                    style: TextStyle(
-                                      color: Colors.blue,
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    width: 5,
-                                  ),
-                                  Container(
-                                    padding: const EdgeInsets.all(2),
-                                    decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      color: HexColor('#3486FE'),
-                                    ),
-                                    child: Icon(
-                                      Icons.question_mark_outlined,
-                                      color: whiteColor,
-                                      size: 18,
-                                    ),
-                                  )
-                                ],
-                              ),
+                              const CustomHelpComponent(),
                             ],
                           ),
                           const SizedBox(
@@ -173,7 +148,7 @@ class RegisterScreen extends StatelessWidget {
                             isPassword: registerCubit.isPassword,
                             suffixIcon: Icon(
                               registerCubit.suffixIcon,
-                              color: Color.fromARGB(255, 5, 3, 3),
+                              color: const Color.fromARGB(255, 5, 3, 3),
                             ),
                             suffixIconPressed: () {
                               registerCubit.changePasswordVisibility();
@@ -238,7 +213,7 @@ class RegisterScreen extends StatelessWidget {
                                 splashColor: Colors.transparent,
                                 highlightColor: Colors.transparent,
                                 onTap: () {
-                                  navigateTo(context, SignInScreen());
+                                  navigateTo(context, const SignInScreen());
                                 },
                                 child: Text(
                                   'Sign in here',

@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 class SignInScreen extends StatefulWidget {
-  SignInScreen({Key? key}) : super(key: key);
+  const SignInScreen({Key? key}) : super(key: key);
 
   @override
   State<SignInScreen> createState() => _SignInScreenState();
@@ -70,31 +70,7 @@ class _SignInScreenState extends State<SignInScreen> {
                             fontWeight: FontWeight.w700,
                           ),
                         ),
-                        Row(
-                          children: [
-                            const Text(
-                              'Help',
-                              style: TextStyle(
-                                color: Colors.blue,
-                              ),
-                            ),
-                            const SizedBox(
-                              width: 5,
-                            ),
-                            Container(
-                              padding: const EdgeInsets.all(2),
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: HexColor('#3486FE'),
-                              ),
-                              child: Icon(
-                                Icons.question_mark_outlined,
-                                color: whiteColor,
-                                size: 18,
-                              ),
-                            )
-                          ],
-                        )
+                        const CustomHelpComponent(),
                       ],
                     ),
                     const SizedBox(
@@ -105,7 +81,7 @@ class _SignInScreenState extends State<SignInScreen> {
                       validator: (String? val) {
                         if (val != null) {
                           if (val.isEmpty) {
-                            countryCodePickerBorderColor = HexColor('#FF3756');
+                            countryCodePickerBorderColor = redColor;
                             WidgetsBinding.instance.addPostFrameCallback((_) {
                               setState(() {});
                             });
